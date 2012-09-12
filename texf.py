@@ -1,7 +1,7 @@
 import re
 import os
 import sys
-
+import types
 
 date_type = '[\d]+-[\d]+[\d]-[\d]+'
 time_type = '[\d]+:[\d]+:[\d]+'
@@ -17,7 +17,10 @@ def get_text_file(path):
 def tex_filter(pattern, path):
 	m = re.findall(pattern, get_text_file(path), re.MULTILINE)
 	for _m in m:
-		print( _m )
+		if type(_m) is types.StringType:
+			print _m
+		else:
+			print( (',').join(_m) )
 
 if len(sys.argv) < 2:
 	exit('Usage: texf.py FILENAME [PATTERN]')
